@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Directory to encrypt
+TARGET_DIR="/path/to/sensitive/data"
+
+# Encrypted output
+ENCRYPTED_FILE="/path/to/encrypted_data.tar.gz.gpg"
+
+# GPG recipient
+RECIPIENT="your@email.com"
+
+# Function to encrypt directory
+encrypt_directory() {
+    tar czf - "$TARGET_DIR" | gpg --encrypt --recipient "$RECIPIENT" -o "$ENCRYPTED_FILE"
+    echo "Directory encrypted."
+}
+
+# Placeholder for the lock event detection
+# This is highly dependent on the operating system and environment
+# For example, on macOS, you might use `pmset` to detect sleep/lock events
+# On Linux, you might use `dbus` to listen for lock signals from the desktop environment
+
+# Main loop (pseudo-code, replace with actual event detection)
+while true; do
+    if [ system_is_locked ]; then
+        encrypt_directory
+        break # Exit after encryption, or adjust as needed
+    fi
+    sleep 60 # Check every 60 seconds, adjust as needed
+done
